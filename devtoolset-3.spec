@@ -7,14 +7,15 @@
 Summary: Package that installs %scl
 Name: %scl_name
 Version: 3.1
-Release: 12%{?dist}
+Release: 12.sc1%{?dist}
 License: GPLv2+
 Group: Applications/File
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Source0: https://github.com/sclorg/rhscl-dockerfiles/archive/%{dfcommit}/rhscl-dockerfiles-%{dfshortcommit}.tar.gz
 
 # The base package must require everything in the collection
-Requires: %{scl_prefix}toolchain %{scl_prefix}ide %{scl_prefix}perftools
+# Removing %%{scl_prefix}ide because we're not having all eclipse packages built
+Requires: %{scl_prefix}toolchain %{scl_prefix}perftools
 Obsoletes: %{name} < %{version}-%{release}
 
 BuildRequires: scl-utils-build >= 20120927-11
@@ -415,6 +416,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Wed Feb 03 2016 Honza Horak <hhorak@redhat.com> - 3.1-13.sc1
+- Remove %%{scl_prefix}ide since we don't have it build.
+
 * Thu May 07 2015 Marek Polacek <polacek@redhat.com> - 3.1-12
 - Update rhscl-dockerfiles from git (#1194663)
 
